@@ -1,0 +1,81 @@
+<mxfile>
+  <diagram name="Диаграмма состояний голосовой команды" id="state1">
+    <mxGraphModel dx="1100" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="700">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Initial state -->
+        <mxCell id="init" value="" style="ellipse;html=1;shape=mxgraph.flowchart.start_2;fillColor=#000000;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="80" y="310" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Created (composite state) -->
+        <mxCell id="created" value="Создана" style="swimlane;fontStyle=1;align=center;startSize=30;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=1;arcSize=10;fontSize=13;collapsible=0;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="180" y="200" width="260" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_init" value="" style="ellipse;html=1;shape=mxgraph.flowchart.start_2;fillColor=#000000;fontSize=10;" vertex="1" parent="created">
+          <mxGeometry x="115" y="40" width="20" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="full" value="Полный разбор" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="created">
+          <mxGeometry x="20" y="90" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="partial" value="Частичный разбор" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="created">
+          <mxGeometry x="70" y="150" width="130" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="none_s" value="Не разобрана" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="created">
+          <mxGeometry x="120" y="205" width="120" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="ci1" style="endArrow=block;endFill=1;" edge="1" source="c_init" target="full" parent="created">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ci2" style="endArrow=block;endFill=1;" edge="1" source="c_init" target="partial" parent="created">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="ci3" style="endArrow=block;endFill=1;" edge="1" source="c_init" target="none_s" parent="created">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Pending -->
+        <mxCell id="pending" value="Ожидает&#xa;подтверждения" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=13;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="560" y="290" width="150" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Corrected -->
+        <mxCell id="corrected" value="Скорректирована" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="780" y="170" width="160" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Confirmed -->
+        <mxCell id="confirmed" value="Подтверждена" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="790" y="410" width="150" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Final state -->
+        <mxCell id="final" value="" style="ellipse;html=1;shape=mxgraph.flowchart.terminate;fillColor=#000000;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="425" width="30" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e_init" value="Аудио загружено&#xa;и распознано" style="endArrow=block;endFill=1;strokeWidth=2;fontSize=11;html=1;" edge="1" source="init" target="created" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cr_pend" value="Результат показан&#xa;оператору" style="endArrow=block;endFill=1;strokeWidth=2;fontSize=11;html=1;" edge="1" source="created" target="pending" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_pend_conf" value="Оператор&#xa;подтвердил" style="endArrow=block;endFill=1;strokeWidth=2;fontSize=11;html=1;" edge="1" source="pending" target="confirmed" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_pend_corr" value="Оператор&#xa;редактирует" style="endArrow=block;endFill=1;strokeWidth=2;fontSize=11;html=1;" edge="1" source="pending" target="corrected" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_corr_conf" value="Подтвердил&#xa;после коррекции" style="endArrow=block;endFill=1;strokeWidth=2;fontSize=11;html=1;" edge="1" source="corrected" target="confirmed" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_conf_fin" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" source="confirmed" target="final" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

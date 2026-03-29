@@ -1,0 +1,86 @@
+<mxfile>
+  <diagram name="DFD Level 1" id="dfd1">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- External entity -->
+        <mxCell id="op" value="Оператор" style="shape=rectangle;rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="310" width="120" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- Processes -->
+        <mxCell id="p1" value="1. Аутентификация" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="260" y="60" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p2" value="2. Конвертация&#xa;аудио (ffmpeg)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="260" y="200" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p3" value="3. Распознавание&#xa;речи (VOSK)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="260" y="340" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p4" value="4. Парсинг&#xa;команды" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="260" y="480" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p5" value="5. Сохранение&#xa;результата" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="260" y="620" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p6" value="6. Отображение&#xa;результата" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="260" y="760" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="p7" value="7. Корректировка&#xa;и подтверждение" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="560" y="760" width="170" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Data stores -->
+        <mxCell id="d1" value="D1: users" style="shape=partialRectangle;top=0;left=0;bottom=1;right=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="80" width="140" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="d2" value="D2: voice_commands" style="shape=partialRectangle;top=0;left=0;bottom=1;right=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="610" width="180" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="d3" value="D3: audio_storage" style="shape=partialRectangle;top=0;left=0;bottom=1;right=0;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;strokeWidth=2;html=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="670" width="180" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e_op_p1" value="логин / пароль" style="endArrow=block;endFill=1;strokeWidth=1.5;fontSize=11;html=1;" edge="1" source="op" target="p1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_p1_op" value="JWT токен" style="endArrow=block;endFill=1;strokeWidth=1.5;fontSize=11;html=1;dashed=1;" edge="1" source="p1" target="op" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_p1_d1" value="credentials" style="endArrow=block;endFill=1;strokeWidth=1.5;fontSize=11;html=1;" edge="1" source="p1" target="d1" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_op_p2" value="аудио WebM" style="endArrow=block;endFill=1;strokeWidth=1.5;fontSize=11;html=1;" edge="1" source="op" target="p2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_p2_p3" value="WAV 16kHz" style="endArrow=block;endFill=1;strokeWidth=1.5;fontSize=11;html=1;" edge="1" source="p2" target="p3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_p3_p4" value="транскрипция" style="endArrow=block;endFill=1;strokeWidth=1.5;fontSize=11;html=1;" edge="1" source="p3" target="p4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_p4_p5" value="команда + идентификатор" style="endArrow=block;endFill=1;strokeWidth=1.5;fontSize=11;html=1;" edge="1" source="p4" target="p5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_p5_d2" style="endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" source="p5" target="d2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_p5_d3" style="endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" source="p5" target="d3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_p5_p6" style="endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" source="p5" target="p6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_p6_p7" style="endArrow=block;endFill=1;strokeWidth=1.5;" edge="1" source="p6" target="p7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

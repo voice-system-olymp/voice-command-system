@@ -1,0 +1,87 @@
+<mxfile>
+  <diagram name="Архитектура системы" id="arch1">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Browser subgraph -->
+        <mxCell id="bg" value="Браузер" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;fontStyle=1;fontSize=14;spacingTop=5;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="100" y="30" width="600" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="spa" value="React SPA&lt;br&gt;Ant Design" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="bg">
+          <mxGeometry x="20" y="40" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="login" value="Login / Register" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="bg">
+          <mxGeometry x="170" y="40" width="120" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="dashboard" value="Dashboard&lt;br&gt;(запись)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="bg">
+          <mxGeometry x="310" y="40" width="120" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="history" value="History / Admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="bg">
+          <mxGeometry x="450" y="40" width="120" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="mr" value="MediaRecorder API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="bg">
+          <mxGeometry x="310" y="110" width="120" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Nginx -->
+        <mxCell id="nginx_bg" value="Nginx (порт 80)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;fontStyle=1;fontSize=13;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="250" y="260" width="300" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="proxy" value="Reverse Proxy" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="nginx_bg">
+          <mxGeometry x="80" y="25" width="140" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Backend subgraph -->
+        <mxCell id="be_bg" value="FastAPI Backend (Python 3.12)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;fontStyle=1;fontSize=14;spacingTop=5;container=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry x="70" y="370" width="660" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="auth" value="Auth Service&lt;br&gt;JWT + bcrypt" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="be_bg">
+          <mxGeometry x="20" y="40" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="asr" value="ASR Service&lt;br&gt;VOSK" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="be_bg">
+          <mxGeometry x="170" y="40" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="parser" value="Command Parser&lt;br&gt;regex + NLP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="be_bg">
+          <mxGeometry x="320" y="40" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="audio_st" value="Audio Storage&lt;br&gt;(WAV файлы)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="be_bg">
+          <mxGeometry x="500" y="40" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="orm" value="SQLAlchemy ORM (async)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="be_bg">
+          <mxGeometry x="120" y="120" width="250" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Auth -> ORM -->
+        <mxCell id="e_auth_orm" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="auth" target="orm" parent="be_bg">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- ASR -> ORM -->
+        <mxCell id="e_asr_orm" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="asr" target="orm" parent="be_bg">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <!-- Parser -> ORM -->
+        <mxCell id="e_parser_orm" style="edgeStyle=orthogonalEdgeStyle;" edge="1" source="parser" target="orm" parent="be_bg">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- PostgreSQL -->
+        <mxCell id="db" value="PostgreSQL 16&lt;br&gt;users, voice_commands" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="610" width="180" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Edges between layers -->
+        <mxCell id="e_browser_nginx" value="HTTP/REST + JWT" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;" edge="1" source="bg" target="nginx_bg" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_nginx_be" value="/api/* -&gt; backend" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;" edge="1" source="nginx_bg" target="be_bg" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_orm_db" style="edgeStyle=orthogonalEdgeStyle;strokeWidth=2;" edge="1" source="orm" target="db" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

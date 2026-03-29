@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: voice_commands
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app_secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d voice_commands"]
+      interval: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://app:app_secret@postgres:5432/voice_commands
+      SECRET_KEY: secret-key
+      VOSK_MODEL_SIZE: small
+      VOSK_MODEL_DIR: /app/vosk-model
+      AUDIO_STORAGE_DIR: /app/audio_storage
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: admin123
+    volumes:
+      - vosk_model:/app/vosk-model
+      - audio_storage:/app/audio_storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+    expose:
+      - "8000"
+
+  frontend:
+    build: ./frontend
+    expose:
+      - "80"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - backend
+      - frontend
+
+volumes:
+  pgdata:
+  vosk_model:
+  audio_storage:
